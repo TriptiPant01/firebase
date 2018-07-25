@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Platform, Image, Text, View, ScrollView } from 'react-native';
 
-import firebase from 'react-native-firebase';
+import firebase  from 'react-native-firebase';
 
 export default class App extends React.Component {
   constructor() {
@@ -12,7 +12,19 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    // firebase things?
+    firebase.auth()
+    .signInAnonymouslyAndRetrieveData()
+    .then(credential => {
+      if (credential) {
+        console.log('default app user ->', credential.user.toJSON());
+      }
+    });
+    firebase.auth().signInAnonymously()
+  .then((user) => {
+    console.log(user.isAnonymous);
+  });
+
+
   }
 
   render() {
